@@ -3,9 +3,12 @@
     grid-template-columns: 4fr 1fr;
     grid-row-gap: 10 ;
 }
-
 .product-container{
 display: grid;
 grid-template-columns: repeat(3,1fr);
 grid-gap: 5px;
+}
+.cart-container{
+    background-color: #f8e0bb;
+    padding: 10px;
 }
