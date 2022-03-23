@@ -4,7 +4,6 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
 const Shop = () => {
-    console.log('665454665456465456564')
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([])
     useEffect(() => {
@@ -14,7 +13,6 @@ const Shop = () => {
     }, [])
 
     useEffect(() => {
-        console.log('spakpdsaksa sahjsa')
         const saveCart = []
         const storedCart = getStoredCart()
         for (const id in storedCart) {
@@ -27,11 +25,24 @@ const Shop = () => {
             setCart(saveCart)
         }
     }, [products])
-    const addToCart = (product) => {
-        const newCart = [...cart, product]
+
+
+    const addToCart = (selectedProduct) => {
+        let newCart = []
+        const exists = cart.find(product => product.id === selectedProduct.id)
+        if (!exists) {
+            selectedProduct.quantity = 1;
+            newCart = [...cart, selectedProduct]
+        } else {
+            const rest = cart.filter(product => product.id !== selectedProduct.id)
+            exists.quantity = exists.quantity + 1;
+            newCart = [...rest, exists]
+        }
         setCart(newCart)
-        addToDb(product.id)
+        addToDb(selectedProduct.id)
     }
+
+
     return (
         <div className='shop-container'>
             <div className='product-container'>
