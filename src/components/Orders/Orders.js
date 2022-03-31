@@ -1,13 +1,29 @@
 import React from 'react';
 import useCart from '../../hooks/useCart';
 import useProducts from '../../hooks/useProducts';
-
+import Cart from '../Cart/Cart'
+import ReviewItem from '../ReviewItem/ReviewItem';
 const Orders = () => {
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useCart(products)
+    const handelRemovedProducts = product => {
+        const rest = cart.filter(pd => pd.id !== product.id)
+        setCart(rest)
+    }
     return (
-        <div>
-            <h1>This is orders {cart.length}</h1>
+        <div className='shop-container'>
+            <div className='review-items-container'>
+                {
+                    cart.map(product => <ReviewItem
+                        key={product.id}
+                        product={product}
+                        handelRemovedProducts={handelRemovedProducts}
+                    ></ReviewItem>)
+                }
+            </div>
+            <div className='cart-container'>
+                <Cart cart={cart} ></Cart>
+            </div>
         </div>
     );
 };
