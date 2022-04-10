@@ -1,6 +1,6 @@
 import './Login.css'
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 
@@ -14,6 +14,8 @@ const Login = () => {
     const handelPasswordBlur = (e) => {
         setPassword(e.target.value)
     }
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
     const [singInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth)
     const handelUserSignIn = (event) => {
         event.preventDefault()
@@ -21,7 +23,7 @@ const Login = () => {
 
     }
     if (user) {
-        navigate('/inventory')
+        navigate(from, { replace: true })
     }
     return (
         <div className='login'>
