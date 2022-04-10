@@ -24,6 +24,7 @@ const Orders = () => {
                     ></ReviewItem>)
                 }
             </div>
+
             <div className='cart-container'>
                 <Cart cart={cart} >
                     <Link to={'/'}>
