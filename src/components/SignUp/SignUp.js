@@ -32,7 +32,7 @@ const SignUp = () => {
         } else {
             createUserWithEmailAndPassword(email, password)
                 .then((result => {
-                    const user = result.user
+
                 }))
         }
     }
