@@ -6,14 +6,23 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
 const Shop = () => {
-    const [products] = useProducts()
-    const [cart, setCart] = useState([])
-
+    const [products] = useProducts();
+    const [cart, setCart] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    useEffect(() => {
+        fetch('http://localhost:5000/productCount')
+            .then(res => res.json())
+            .then(data => {
+                const count = data.count;
+                const pages = Math.ceil(count / 10)
+                setPageCount(pages)
+            })
+    }, [])
     useEffect(() => {
         const saveCart = []
         const storedCart = getStoredCart()
         for (const id in storedCart) {
-            const addedProduct = products.find(product => product.id === id)
+            const addedProduct = products.find(product => product._id === id)
             if (addedProduct) {
                 const quantity = storedCart[id]
                 addedProduct.quantity = quantity
@@ -26,18 +35,18 @@ const Shop = () => {
 
     const addToCart = (selectedProduct) => {
         let newCart = []
-        const exists = cart.find(product => product.id === selectedProduct.id)
+        const exists = cart.find(product => product._id === selectedProduct._id)
         if (!exists) {
             selectedProduct.quantity = 1;
             newCart = [...cart, selectedProduct]
 
         } else {
-            const rest = cart.filter(product => product.id !== selectedProduct.id)
+            const rest = cart.filter(product => product._id !== selectedProduct._id)
             exists.quantity = exists.quantity + 1;
             newCart = [...rest, exists]
         }
         setCart(newCart)
-        addToDb(selectedProduct.id)
+        addToDb(selectedProduct._id)
     }
 
 
@@ -45,6 +54,12 @@ const Shop = () => {
         <div className='shop-container'>
             <div className='product-container'>
                 {products.map(product => <Product product={product} key={product._id} addToCart={addToCart} > </Product>)}
+
+                <div className='pagination'>
+                    {
+                        [...Array(pageCount).keys()].map(num => <button>{num}</button>)
+                    }
+                </div>
             </div>
             <div className='cart-container'>
                 <Cart cart={cart}>

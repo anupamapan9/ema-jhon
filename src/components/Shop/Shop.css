@@ -21,3 +21,10 @@
     width: 230px;
     height: 48px;
 }
+
+.pagination button {
+    margin-right: 10px;
+    background-color: #FF9900;
+    border: 1px solid #FF9900;
+    padding: 10px;
+}
