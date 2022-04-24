@@ -26,5 +26,11 @@
     margin-right: 10px;
     background-color: #FF9900;
     border: 1px solid #FF9900;
+    color: white;
     padding: 10px;
+}
+
+.pagination .selected {
+    background-color: #f8e0bb;
+    color: black;
 }
