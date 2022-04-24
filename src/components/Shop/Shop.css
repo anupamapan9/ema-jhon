@@ -22,12 +22,19 @@
     height: 48px;
 }
 
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
 .pagination button {
     margin-right: 10px;
     background-color: #FF9900;
     border: 1px solid #FF9900;
     color: white;
     padding: 10px;
+    cursor: pointer;
 }
 
 .pagination .selected {
