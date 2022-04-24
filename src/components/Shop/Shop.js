@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import useProducts from '../../hooks/useProducts';
+import useCart from '../../hooks/useCart';
 import { addToDb, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css'
 const Shop = () => {
-    // const [products] = useProducts();
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart();
     const [pageCount, setPageCount] = useState(0);
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
@@ -30,19 +29,19 @@ const Shop = () => {
                 setPageCount(pages)
             })
     }, [size])
-    useEffect(() => {
-        const saveCart = []
-        const storedCart = getStoredCart()
-        for (const id in storedCart) {
-            const addedProduct = products.find(product => product._id === id)
-            if (addedProduct) {
-                const quantity = storedCart[id]
-                addedProduct.quantity = quantity
-                saveCart.push(addedProduct)
-            }
-            setCart(saveCart)
-        }
-    }, [products])
+    // useEffect(() => {
+    //     const saveCart = []
+    //     const storedCart = getStoredCart()
+    //     for (const id in storedCart) {
+    //         const addedProduct = products.find(product => product._id === id)
+    //         if (addedProduct) {
+    //             const quantity = storedCart[id]
+    //             addedProduct.quantity = quantity
+    //             saveCart.push(addedProduct)
+    //         }
+    //         setCart(saveCart)
+    //     }
+    // }, [products])
 
 
 
@@ -74,7 +73,7 @@ const Shop = () => {
                 <div className='pagination'>
                     <div>
                         {
-                            [...Array(pageCount).keys()].map(num => <button className={page === num ? 'selected' : ''} onClick={() => setPage(num)}>{num}</button>)
+                            [...Array(pageCount).keys()].map(num => <button key={num} className={page === num ? 'selected' : ''} onClick={() => setPage(num)}>{num}</button>)
                         }
 
                         <select onChange={e => setSize(e.target.value)}>

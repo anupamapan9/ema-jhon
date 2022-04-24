@@ -7,7 +7,7 @@ import Cart from '../Cart/Cart'
 import ReviewItem from '../ReviewItem/ReviewItem';
 const Orders = () => {
     const [products] = useProducts();
-    const [cart, setCart] = useCart(products)
+    const [cart, setCart] = useCart()
     const handelRemovedProducts = product => {
         const rest = cart.filter(pd => pd._id !== product._id)
         setCart(rest)
